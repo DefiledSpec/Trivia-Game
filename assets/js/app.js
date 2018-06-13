@@ -109,7 +109,7 @@ function checkAnswer(answer) {
         score++;
         runningScore++;
         $('.counter').empty();
-        quizContainer.html('Correct!' + answer);
+        quizContainer.html('Correct! ' + answer);
         
     }else{
         quizContainer.html('Wrong! The answer is ' + correct);
