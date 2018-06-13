@@ -1,0 +1,42 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+.gameTitle {
+
+}
+.question {
+    background: lightblue;
+    width: max-content;
+    margin: 0 auto;
+    padding: 1em;
+
+}
+ul {
+    padding: 0;
+
+}
+.answers {
+    width: max-content;
+    list-style-type: none;
+    background: lightslategrey;
+    padding: .5em 1em .5em 1em;
+    border: .5px solid black;
+    margin: 1em auto 1em auto;
+}
+.answers:hover {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+.centered {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
