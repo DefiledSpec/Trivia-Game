@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-button {
+button, select {
     margin: 1em auto 1em auto;
     padding: .25em .5em;
     width: max-content;
@@ -19,8 +19,9 @@ button {
 .question {
     background: lightblue;
     width: 90%;
-    margin: 0 auto;
+    margin: 1em auto;
     padding: 1em;
+    font-size: 1.1em;
 
 }
 .wrapper {
@@ -35,6 +36,12 @@ ul {
     padding: 0;
 
 }
+.statusText {
+    font-size: 1.1em;
+    text-align: center;
+    
+
+}
 .answers {
     width: max-content;
     list-style-type: none;
@@ -42,6 +49,7 @@ ul {
     padding: .5em 1em .5em 1em;
     border: .5px solid black;
     margin: 1em auto 1em auto;
+    font-size: 1.1em;
 }
 .answers:hover {
     cursor: pointer;

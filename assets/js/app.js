@@ -7,12 +7,12 @@ let questionTimer;
 let quizContainer = $('.quizContainer');
 let counterId;
 let counter;
-let triviaCompleted, questionQty = 10, difficulty;
+let triviaCompleted = 0, questionQty = 10, difficulty;
 let queryURL;
 
 function start() {
     quizContainer.empty();
-    if(runningScore >= 1) {
+    if(runningScore > 0 || triviaCompleted > 0) {
         quizContainer.append($('<button>').addClass('startGame').text('Continue'));
     }
     $('.counter').empty();
@@ -21,7 +21,6 @@ function start() {
     currentQuestion = 0;
     questionsAnswered = 0;
     score = 0;
-    console.log($('.difficulty').val())
    
 }
 function addDifficulty(){
@@ -42,11 +41,13 @@ function addDifficulty(){
 
 function getQuestion() {
     if(!difficulty || difficulty === 'any') {
-        queryUrl = `https://opentdb.com/api.php?amount=1`
+        queryURL = `https://opentdb.com/api.php?amount=1`
     } else {
         queryURL = `https://opentdb.com/api.php?amount=1&difficulty=${difficulty}`;
     }
-    if(questionsAnswered >= questionQty){
+    console.log(queryURL)
+    if(questionsAnswered >= questionQty) {
+        triviaCompleted++;
         start();
         return
     }
@@ -57,9 +58,14 @@ function getQuestion() {
         });
 }
 function runCounter() {
+    clearInterval(counterId);
     counter = 10;
     let counterDiv = $('.counter').html(`Time Left: ${counter}`);
     counterId = setInterval(function() {
+        if(counter < 0) {
+            counter = 10;
+            clearInterval(counterId)
+        }
         counter--;
         console.log(`Time Left: ${counter}`)
         counterDiv.html(`Time Left: ${counter}`);
@@ -75,16 +81,17 @@ function showQuestion(res) {
         checkAnswer();
     }, 10000);
     currentQuestion++;
-    $('#currentQuestion').text(`Current Question: ${currentQuestion} / 10`)
+    $('#currentQuestion').text(`Current Question: ${currentQuestion} / 10`);
     // console.log(res)
     correct = res.correct_answer;
     let unshuffled = [...res.incorrect_answers, res.correct_answer];
     let answers = shuffle(unshuffled);
-    let answerList = $('<ul>')
+    let answerList = $('<ul>');
     // console.log(answers)
     quizContainer.empty().text(`Score: ${runningScore}`)
+        .append($('<p>').text(`Trivia Completed: ${triviaCompleted}`))
         .append($('<p>').addClass('question').html(res.question))
-        .append(answerList)
+        .append(answerList);
     for(let i = 0; i < answers.length; i++) {
         answerList.append($('<li>')
             .addClass('answers').attr('data-answer', answers[i])
@@ -112,7 +119,7 @@ function checkAnswer(answer) {
         quizContainer.html('Correct! ' + answer);
         
     }else{
-        quizContainer.html('Wrong! The answer is ' + correct);
+        quizContainer.html($('<p>').addClass('statusText').text('Wrong! The correct answer is ' + correct));
     }
     questionsAnswered++;
     setTimeout(getQuestion, 2500);
@@ -120,10 +127,11 @@ function checkAnswer(answer) {
 $(document).on('click', '.startGame', function() {
     getQuestion();
     difficulty = $('.difficulty').val();
-    console.log(difficulty)
+    
 });
 $(document).on('click', '.startOver', function() {
     difficulty = $('.difficulty').val();
+    triviaCompleted = 0;
     runningScore = 0;
     getQuestion();
 })
