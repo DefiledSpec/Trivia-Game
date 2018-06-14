@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html {
+    /*background: url('assets/img/.png);*/
+}
+
 button, select {
     margin: 1em auto 1em auto;
     padding: .25em .5em;
@@ -37,7 +41,7 @@ ul {
 
 }
 .statusText {
-    font-size: 1.1em;
+    font-size: 1.2em;
     text-align: center;
     
 
