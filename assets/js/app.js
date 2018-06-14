@@ -22,11 +22,10 @@ function start() {
 }
 function addDifficulty(){
     let myOptions = {
+        any : 'Any',
         easy : 'Easy',
         medium : 'Medium',
-        hard : 'Hard',
-        any : 'Any'
-
+        hard : 'Hard'
     };
     let selectArea = $('<select>').addClass('difficulty');
     quizContainer.append(selectArea);
@@ -42,26 +41,13 @@ function getQuestion() {
     } else {
         queryURL = `https://opentdb.com/api.php?amount=1&difficulty=${difficulty}`;
     }
-    console.log(queryURL)
+    // console.log(queryURL)
     if(questionsAnswered >= questionQty) {
         triviaCompleted++;
         start();
         return
     }
-    /**let h = new Headers();
-     * //h.append('Accept', 'application/json');
-     * let req = new Request(queryURL);
-     * fetch(req);
-     *  .then(res => {
-     *      if(res.ok){        
-     *          return res.json();
-     *      } else {
-     *          throw new Error(); //not sure if this needs a return
-     *      }
-     *  })
-     *  .then(data => showQuestion(response.results[0]));
-     *  .catch(err => console.log(err));
-     */
+
     const options = {
         url: queryURL,
         method: 'GET'
@@ -69,8 +55,10 @@ function getQuestion() {
 
     $.ajax(options)
         .then( response => {
+            console.log(response)
             showQuestion(response.results[0]);
-        });
+        })
+        .catch(err => console.log(`Error: ${err}`));
 }
 function runCounter() {
     clearInterval(counterId);
@@ -82,7 +70,7 @@ function runCounter() {
             clearInterval(counterId)
         }
         counter--;
-        console.log(`Time Left: ${counter}`)
+        // console.log(`Time Left: ${counter}`)
         counterDiv.html(`Time Left: ${counter}`);
     }, 1000);
 }
@@ -123,27 +111,24 @@ function shuffle(array) {
 function checkAnswer(answer) {
     clearTimeout(questionTimer);
     clearInterval(counterId);
-    // if(correct === null) {
-    //     console.log('Correct answer was not set')
-    //     return
-    // }
+    // console.log(answer)
+    quizContainer.empty();
+    $('.counter').empty();
+    let statusText = $('<p>').addClass('statusText').empty();
+    questionsAnswered++;
+    setTimeout(getQuestion, 2500);
     if(answer === 'TIME-UP') {
-        console.log('Times up!');
-        questionsAnswered++;
-        setTimeout(getQuestion, 2500);
+        // console.log('Times up!');
+        quizContainer.append(statusText.html(`Times up! The correct answer was ${correct}`));
         return
     }
     if(answer === correct) {
         score++;
         runningScore++;
-        $('.counter').empty();
-        quizContainer.html('Correct! ' + answer);
-        
-    }else {
-        quizContainer.html($('<p>').addClass('statusText').text('Wrong! The correct answer is ' + correct));
-    }
-    questionsAnswered++;
-    setTimeout(getQuestion, 2500);
+        quizContainer.append(statusText.html(`Correct! ${answer}`));   
+    }else{
+        quizContainer.append(statusText.html(`Wrong! The correct answer is ${correct}`));
+    } 
 }
 $(document).on('click', '.startGame', function() {
     getQuestion();

@@ -1,63 +1,76 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+    color: ghostwhite;
 }
 
 html {
-    /*background: url('assets/img/.png);*/
+    background: url(../img/diagonales_decalees.png);
 }
 
-button, select {
+ul {
+    padding: 0;
+}
+
+button, select, select option {
     margin: 1em auto 1em auto;
     padding: .25em .5em;
     width: max-content;
     margin-left: auto;
     margin-right: auto;
     display: block;
+    color: black;
+    background: #328cc1;
+    border: none;
+    font-size: 1.1em;
 }
 
 .gameTitle {
     text-align: center;
 }
+
 .question {
-    background: lightblue;
+    background: #0b3c5d;
     width: 90%;
     margin: 1em auto;
     padding: 1em;
     font-size: 1.1em;
-
+    border-radius: 2px;
 }
-.wrapper {
-    background: lightcoral;
-    margin-top: 2.5em;
-    padding: 1em;
-    max-width: 960px;
 
-
-}
-ul {
-    padding: 0;
-
-}
-.statusText {
-    font-size: 1.2em;
-    text-align: center;
-    
-
-}
 .answers {
     width: max-content;
     list-style-type: none;
-    background: lightslategrey;
+    background: #0b3c5d;
     padding: .5em 1em .5em 1em;
-    border: .5px solid black;
+    border: .1px solid #d9b310;
     margin: 1em auto 1em auto;
     font-size: 1.1em;
+    border-radius: 2px;
 }
+
 .answers:hover {
     cursor: pointer;
     background: rgba(0,0,0,0.3);
+}
+
+.wrapper {
+    background: #1D2731;
+    margin-top: 2.5em;
+    padding: 1em;
+    max-width: 960px;
+    border-radius: 2px;
+}
+
+.statusText {
+    margin: 2em auto;
+    font-size: 1.5em;
+    text-align: center;
 }
 
 .hidden {
@@ -65,7 +78,6 @@ ul {
 }
 
 .centered {
-    /* width: 40%; */
     margin-left: auto;
     margin-right: auto;
 }
