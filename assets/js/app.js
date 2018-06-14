@@ -1,7 +1,7 @@
 let letters = ['A', 'B', 'C', 'D', 'E'];
 let correct = null;
 let score, runningScore = 0;
-let currentQuestion, questionsAnswered;
+let currentQuestion, questionsAnswered=8;
 let quizContainer = $('.quizContainer');
 let questionTimer, counterId, counter;
 let triviaCompleted = 0, questionQty = 10, difficulty;
@@ -10,6 +10,7 @@ let queryURL;
 function start() {
     quizContainer.empty();
     if(runningScore > 0 || triviaCompleted > 0) {
+        quizContainer.append($('<p>').addClass('statusText').html(`Correct Answers: ${score} <br>Incorect Answers: ${questionQty - score}`))
         quizContainer.append($('<button>').addClass('startGame').text('Continue'));
     }
     $('.counter').empty();
@@ -55,7 +56,7 @@ function getQuestion() {
 
     $.ajax(options)
         .then( response => {
-            console.log(response)
+            // console.log(response)
             showQuestion(response.results[0]);
         })
         .catch(err => console.log(`Error: ${err}`));

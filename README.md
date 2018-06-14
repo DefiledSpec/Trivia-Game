@@ -2,7 +2,7 @@
 
 Click this [Link](https://defiledspec.github.io/Trivia-Game) to play!
 
-[Github Portfolio](https://defiledspec.github.io/)
+[Github Portfolio](https://defiledspec.github.io)
 
 ----
 Created using **Open Trivia Database API**
