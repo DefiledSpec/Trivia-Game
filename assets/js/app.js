@@ -1,12 +1,9 @@
 let letters = ['A', 'B', 'C', 'D', 'E'];
-let currentQuestion;
 let correct = null;
 let score, runningScore = 0;
-let questionsAnswered;
-let questionTimer;
+let currentQuestion, questionsAnswered;
 let quizContainer = $('.quizContainer');
-let counterId;
-let counter;
+let questionTimer, counterId, counter;
 let triviaCompleted = 0, questionQty = 10, difficulty;
 let queryURL;
 
@@ -24,7 +21,7 @@ function start() {
    
 }
 function addDifficulty(){
-    var myOptions = {
+    let myOptions = {
         easy : 'Easy',
         medium : 'Medium',
         hard : 'Hard',
@@ -51,8 +48,26 @@ function getQuestion() {
         start();
         return
     }
+    /**let h = new Headers();
+     * //h.append('Accept', 'application/json');
+     * let req = new Request(queryURL);
+     * fetch(req);
+     *  .then(res => {
+     *      if(res.ok){        
+     *          return res.json();
+     *      } else {
+     *          throw new Error(); //not sure if this needs a return
+     *      }
+     *  })
+     *  .then(data => showQuestion(response.results[0]));
+     *  .catch(err => console.log(err));
+     */
+    const options = {
+        url: queryURL,
+        method: 'GET'
+    };
 
-    $.ajax({url: queryURL, method: 'GET'})
+    $.ajax(options)
         .then( response => {
             showQuestion(response.results[0]);
         });
@@ -78,7 +93,7 @@ function showQuestion(res) {
 
     questionTimer = setTimeout(function() {
         clearInterval(counterId);
-        checkAnswer();
+        checkAnswer('TIME-UP');
     }, 10000);
     currentQuestion++;
     $('#currentQuestion').text(`Current Question: ${currentQuestion} / 10`);
@@ -108,9 +123,15 @@ function shuffle(array) {
 function checkAnswer(answer) {
     clearTimeout(questionTimer);
     clearInterval(counterId);
-    
-    if(!answer) {
+    // if(correct === null) {
+    //     console.log('Correct answer was not set')
+    //     return
+    // }
+    if(answer === 'TIME-UP') {
         console.log('Times up!');
+        questionsAnswered++;
+        setTimeout(getQuestion, 2500);
+        return
     }
     if(answer === correct) {
         score++;
@@ -118,7 +139,7 @@ function checkAnswer(answer) {
         $('.counter').empty();
         quizContainer.html('Correct! ' + answer);
         
-    }else{
+    }else {
         quizContainer.html($('<p>').addClass('statusText').text('Wrong! The correct answer is ' + correct));
     }
     questionsAnswered++;
