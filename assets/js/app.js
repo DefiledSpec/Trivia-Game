@@ -120,7 +120,7 @@ function checkAnswer(answer) {
     setTimeout(getQuestion, 2500);
     if(answer === 'TIME-UP') {
         // console.log('Times up!');
-        quizContainer.append(statusText.html(`Times up! The correct answer was ${correct}`));
+        quizContainer.append(statusText.html(`Times up! The correct answer was ${correct}.`));
         return
     }
     if(answer === correct) {
@@ -128,7 +128,7 @@ function checkAnswer(answer) {
         runningScore++;
         quizContainer.append(statusText.html(`Correct! ${answer}`));   
     }else{
-        quizContainer.append(statusText.html(`Wrong! The correct answer is ${correct}`));
+        quizContainer.append(statusText.html(`Wrong! The correct answer is ${correct}.`));
     } 
 }
 $(document).on('click', '.startGame', function() {

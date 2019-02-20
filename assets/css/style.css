@@ -27,6 +27,7 @@ button, select, select option {
     color: black;
     background: #328cc1;
     border: none;
+    border-radius: 3px;
     font-size: 1.1em;
 }
 
@@ -64,7 +65,7 @@ button, select, select option {
     margin-top: 2.5em;
     padding: 1em;
     max-width: 960px;
-    border-radius: 2px;
+    border-radius: 3px;
 }
 
 .statusText {
