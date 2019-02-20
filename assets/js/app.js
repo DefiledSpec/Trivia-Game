@@ -128,7 +128,7 @@ function checkAnswer(answer) {
         runningScore++;
         quizContainer.append(statusText.html(`Correct! ${answer}`));   
     }else{
-        quizContainer.append(statusText.html(`Wrong! The correct answer is ${correct}.`));
+        quizContainer.append(statusText.html(`Wrong! The correct answer was ${correct}.`));
     } 
 }
 $(document).on('click', '.startGame', function() {
